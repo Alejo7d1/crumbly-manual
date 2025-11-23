@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de Datos - Manual Técnico Crumbly</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Crumbly</h1>
+            <h2>Manual Tecnico - Base de Datos</h2>
+            <p class="version">Versión 1.0</p>
+        </header>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="../index.html" class="nav-link">Inicio</a></li>
+                <li><a href="#diagrama" class="nav-link">Diagrama ER</a></li>
+                <li><a href="#diccionario" class="nav-link">Diccionario</a></li>
+                <li><a href="#conexion" class="nav-link">Conexión</a></li>
+                <li><a href="#mantenimiento" class="nav-link">Mantenimiento</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- Sección Diagrama Entidad-Relación -->
+            <section id="diagrama" class="section">
+                <h2>Diagrama Entidad-Relación (ERD)</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Esquema de Base de Datos</h3>
+                        <p>El diagrama Entidad-Relación representa la estructura completa de la base de datos de Crumbly, mostrando las tablas, sus atributos y las relaciones entre ellas.</p>
+                        
+                        <div class="image-placeholder">
+                            <div class="img-container">
+                                <img src="../assets/diagrama2.png" class="diagrama2"/>
+                            </div>
+                            <p class="image-caption">Diagrama 1: Diagrama Entidad-Relación de la base de datos Crumbly</p>
+                        </div>
+
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4>Entidades Principales</h4>
+                                <ul>
+                                    <li>Usuario_Local / Usuario_Firebase</li>
+                                    <li>Cliente</li>
+                                    <li>Administrador</li>
+                                    <li>Producto</li>
+                                    <li>Pedido</li>
+                                    <li>Categoria</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4>Relaciones Clave</h4>
+                                <ul>
+                                    <li>Cliente - Pedido (1:N)</li>
+                                    <li>Producto - Categoria (N:1)</li>
+                                    <li>Pedido - Detalle_Pedido (1:N)</li>
+                                    <li>Producto - Oferta (1:1)</li>
+                                    <li>Producto - Valoracion (1:N)</li>
+                                    <li>Pedido - Pago_Pedido (1:1)</li>
+                                    <li>Cliente - Direccion (1:N)</li>
+                                    <li>Administrador - Producto (1:N)</li>
+                                    <li>Tipo_Usuario - Usuario_Local (1:N)</li>
+                                    <li>Tipo_Usuario - Usuario_Firebase (1:N)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="img-container">
+                        <img src="../assets/diagrama4.png"/>
+                    </div>
+                <p>Diagrama 2: Sistema de inserción de datos en la base de datos</p>
+                </div>
+            </section>
+
+            <!-- Sección Diccionario de Datos -->
+            <section id="diccionario" class="section">
+                <h2>Diccionario de Datos</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Tablas y Columnas Principales</h3>
+                        
+                        <div class="table-placeholder">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Tabla</th>
+                    <th>Columna</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Restricciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <!-- TIPO_USUARIO -->
+                <tr>
+                    <td rowspan="2">TIPO_USUARIO</td>
+                    <td>id_tipo_usuario</td>
+                    <td>INT AUTO_INCREMENT</td>
+                    <td>Identificador único del tipo de usuario</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>nombre_tipo</td>
+                    <td>VARCHAR(50)</td>
+                    <td>Nombre del tipo de usuario</td>
+                    <td>NOT NULL</td>
+                </tr>
+
+                <!-- USUARIO_LOCAL -->
+                <tr>
+                    <td rowspan="4">USUARIO_LOCAL</td>
+                    <td>id_usuario_local</td>
+                    <td>INT AUTO_INCREMENT</td>
+                    <td>Identificador único de usuario local</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>username</td>
+                    <td>VARCHAR(50)</td>
+                    <td>Nombre de usuario para login</td>
+                    <td>NOT NULL, UNIQUE</td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>VARCHAR(255)</td>
+                    <td>Contraseña encriptada</td>
+                    <td>NOT NULL</td>
+                </tr>
+                <tr>
+                    <td>id_tipo_usuario</td>
+                    <td>INT</td>
+                    <td>Referencia al tipo de usuario</td>
+                    <td>FOREIGN KEY</td>
+                </tr>
+
+                <!-- USUARIO_FIREBASE -->
+                <tr>
+                    <td rowspan="4">USUARIO_FIREBASE</td>
+                    <td>id_usuario_firebase</td>
+                    <td>INT AUTO_INCREMENT</td>
+                    <td>Identificador único de usuario Firebase</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>uid_firebase</td>
+                    <td>VARCHAR(100)</td>
+                    <td>UID de Firebase Authentication</td>
+                    <td>NOT NULL, UNIQUE</td>
+                </tr>
+                <tr>
+                    <td>correo</td>
+                    <td>VARCHAR(100)</td>
+                    <td>Correo electrónico del usuario</td>
+                    <td>NOT NULL</td>
+                </tr>
+                <tr>
+                    <td>id_tipo_usuario</td>
+                    <td>INT</td>
+                    <td>Referencia al tipo de usuario</td>
+                    <td>FOREIGN KEY</td>
+                </tr>
+
+                <!-- ADMINISTRADOR -->
+                <tr>
+                    <td rowspan="3">ADMINISTRADOR</td>
+                    <td>id_admin</td>
+                    <td>VARCHAR(20)</td>
+                    <td>Identificador único del administrador</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>nombre</td>
+                    <td>VARCHAR(100)</td>
+                    <td>Nombre del administrador</td>
+                    <td>UNIQUE</td>
+                </tr>
+                <tr>
+                    <td>id_tipo_usuario</td>
+                    <td>INT</td>
+                    <td>Referencia al tipo de usuario</td>
+                    <td>FOREIGN KEY</td>
+                </tr>
+
+                <!-- CLIENTE -->
+                <tr>
+                    <td rowspan="5">CLIENTE</td>
+                    <td>id_cliente</td>
+                    <td>VARCHAR(20)</td>
+                    <td>Identificador único del cliente</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>nombre</td>
+                    <td>VARCHAR(100)</td>
+                    <td>Nombre completo del cliente</td>
+                    <td>NOT NULL</td>
+                </tr>
+                <tr>
+                    <td>correo</td>
+                    <td>VARCHAR(100)</td>
+                    <td>Correo electrónico del cliente</td>
+                    <td>UNIQUE</td>
+                </tr>
+                <tr>
+                    <td>ciudad</td>
+                    <td>VARCHAR(100)</td>
+                    <td>Ciudad de residencia</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>cp</td>
+                    <td>VARCHAR(10)</td>
+                    <td>Código postal</td>
+                    <td>-</td>
+                </tr>
+
+                <!-- CATEGORIA -->
+                <tr>
+                    <td rowspan="3">CATEGORIA</td>
+                    <td>id_categoria</td>
+                    <td>INT AUTO_INCREMENT</td>
+                    <td>Identificador único de categoría</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>nombre_categoria</td>
+                    <td>VARCHAR(100)</td>
+                    <td>Nombre de la categoría</td>
+                    <td>NOT NULL</td>
+                </tr>
+                <tr>
+                    <td>descripcion</td>
+                    <td>VARCHAR(255)</td>
+                    <td>Descripción de la categoría</td>
+                    <td>NOT NULL</td>
+                </tr>
+
+                <!-- ESTADO_PRODUCTO -->
+                <tr>
+                    <td rowspan="2">ESTADO_PRODUCTO</td>
+                    <td>id_estado_producto</td>
+                    <td>INT AUTO_INCREMENT</td>
+                    <td>Identificador único del estado</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>nombre_estado</td>
+                    <td>VARCHAR(50)</td>
+                    <td>Nombre del estado del producto</td>
+                    <td>NOT NULL</td>
+                </tr>
+
+                <!-- PRODUCTO -->
+                <tr>
+                    <td rowspan="8">PRODUCTO</td>
+                    <td>id_producto</td>
+                    <td>VARCHAR(20)</td>
+                    <td>Identificador único del producto</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>nombre</td>
+                    <td>VARCHAR(100)</td>
+                    <td>Nombre del producto</td>
+                    <td>NOT NULL</td>
+                </tr>
+                <tr>
+                    <td>descripcion</td>
+                    <td>TEXT</td>
+                    <td>Descripción detallada del producto</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>precio</td>
+                    <td>DECIMAL(10,2)</td>
+                    <td>Precio del producto</td>
+                    <td>NOT NULL</td>
+                </tr>
+                <tr>
+                    <td>stock</td>
+                    <td>INT</td>
+                    <td>Cantidad disponible en inventario</td>
+                    <td>DEFAULT 0</td>
+                </tr>
+                <tr>
+                    <td>id_categoria</td>
+                    <td>INT</td>
+                    <td>Referencia a la categoría</td>
+                    <td>FOREIGN KEY</td>
+                </tr>
+                <tr>
+                    <td>id_admin</td>
+                    <td>VARCHAR(20)</td>
+                    <td>Referencia al administrador</td>
+                    <td>FOREIGN KEY</td>
+                </tr>
+                <tr>
+                    <td>id_estado_producto</td>
+                    <td>INT</td>
+                    <td>Referencia al estado del producto</td>
+                    <td>FOREIGN KEY</td>
+                </tr>
+
+                <!-- ESTADO_PEDIDO -->
+                <tr>
+                    <td rowspan="2">ESTADO_PEDIDO</td>
+                    <td>id_estado_pedido</td>
+                    <td>INT AUTO_INCREMENT</td>
+                    <td>Identificador único del estado</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>nombre_estado</td>
+                    <td>VARCHAR(50)</td>
+                    <td>Nombre del estado del pedido</td>
+                    <td>NOT NULL</td>
+                </tr>
+
+                <!-- PEDIDO -->
+                <tr>
+                    <td rowspan="4">PEDIDO</td>
+                    <td>id_pedido</td>
+                    <td>INT AUTO_INCREMENT</td>
+                    <td>Identificador único del pedido</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>id_cliente</td>
+                    <td>VARCHAR(20)</td>
+                    <td>Referencia al cliente</td>
+                    <td>FOREIGN KEY</td>
+                </tr>
+                <tr>
+                    <td>fecha_pedido</td>
+                    <td>DATETIME</td>
+                    <td>Fecha y hora del pedido</td>
+                    <td>DEFAULT CURRENT_TIMESTAMP</td>
+                </tr>
+                <tr>
+                    <td>total</td>
+                    <td>DECIMAL(10,2)</td>
+                    <td>Total del pedido</td>
+                    <td>-</td>
+                </tr>
+
+                <!-- DETALLE_PEDIDO -->
+                <tr>
+                    <td rowspan="4">DETALLE_PEDIDO</td>
+                    <td>id_detalle</td>
+                    <td>INT AUTO_INCREMENT</td>
+                    <td>Identificador único del detalle</td>
+                    <td>PRIMARY KEY</td>
+                </tr>
+                <tr>
+                    <td>id_pedido</td>
+                    <td>INT</td>
+                    <td>Referencia al pedido</td>
+                    <td>FOREIGN KEY</td>
+                </tr>
+                <tr>
+                    <td>id_producto</td>
+                    <td>VARCHAR(20)</td>
+                    <td>Referencia al producto</td>
+                    <td>FOREIGN KEY</td>
+                </tr>
+                <tr>
+                    <td>cantidad</td>
+                    <td>INT</td>
+                    <td>Cantidad del producto</td>
+                    <td>NOT NULL</td>
+                </tr>
+
+            </tbody>
+        </table>
+                            <p class="image-caption">Tabla 1: Diccionario de datos con descripción de tablas y columnas principales</p>
+                        </div>
+
+                        <h4>Tablas del Sistema</h4>
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h5>Tablas de Usuarios</h5>
+                                <ul>
+                                    <li><strong>Tipo_Usuario</strong> - Roles del sistema</li>
+                                    <li><strong>Usuario_Local</strong> - Usuarios con autenticación local</li>
+                                    <li><strong>Usuario_Firebase</strong> - Usuarios con auth Firebase</li>
+                                    <li><strong>Administrador</strong> - Administradores del sistema</li>
+                                    <li><strong>Cliente</strong> - Clientes registrados</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h5>Tablas de Productos</h5>
+                                <ul>
+                                    <li><strong>Producto</strong> - Catálogo de productos</li>
+                                    <li><strong>Categoria</strong> - Categorías de productos</li>
+                                    <li><strong>Estado_Producto</strong> - Estados disponibles</li>
+                                    <li><strong>Oferta</strong> - Ofertas y descuentos</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h5>Tablas de Pedidos</h5>
+                                <ul>
+                                    <li><strong>Pedido</strong> - Cabecera de pedidos</li>
+                                    <li><strong>Detalle_Pedido</strong> - Detalles de productos</li>
+                                    <li><strong>Estado_Pedido</strong> - Estados del pedido</li>
+                                    <li><strong>Pago_Pedido</strong> - Información de pagos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Estructura de Tablas Principales</h3>
+                        
+                        <h4>Tabla: Producto</h4>
+                        <pre class="code-block"><code>CREATE TABLE Producto (
+    id_producto VARCHAR(20) PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10,2) NOT NULL,
+    stock INT DEFAULT 0,
+    id_categoria INT,
+    id_admin VARCHAR(20),
+    id_estado_producto INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria),
+    FOREIGN KEY (id_admin) REFERENCES Administrador(id_admin),
+    FOREIGN KEY (id_estado_producto) REFERENCES Estado_Producto(id_estado_producto)
+);</code></pre>
+
+                        <h4>Tabla: Pedido</h4>
+                        <pre class="code-block"><code>CREATE TABLE Pedido (
+    id_pedido INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente VARCHAR(20),
+    fecha_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
+    total DECIMAL(10,2),
+    id_estado_pedido INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
+    FOREIGN KEY (id_estado_pedido) REFERENCES Estado_Pedido(id_estado_pedido)
+);</code></pre>
+
+                        <h4>Tabla: Detalle_Pedido</h4>
+                        <pre class="code-block"><code>CREATE TABLE Detalle_Pedido (
+    id_detalle INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT,
+    id_producto VARCHAR(20),
+    cantidad INT NOT NULL,
+    subtotal DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_pedido) REFERENCES Pedido(id_pedido),
+    FOREIGN KEY (id_producto) REFERENCES Producto(id_producto)
+);</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Parámetros de Conexión -->
+            <section id="conexion" class="section">
+                <h2>Parámetros de Conexión</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Configuración de Base de Datos</h3>
+                        
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4>Variables de entorno</h4>
+                                <pre class="code-block"><code>// .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=crumbly
+DB_USERNAME=root
+DB_PASSWORD=
+</code></pre>
+                            </div>
+                        </div>
+
+                        <h4>Especificaciones Técnicas</h4>
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h5>Motor de Base de Datos</h5>
+                                <ul>
+                                    <li><strong>Motor:</strong> MySQL 8.0+</li>
+                                    <li><strong>Charset:</strong> utf8mb4</li>
+                                    <li><strong>Collation:</strong> utf8mb4_unicode_ci</li>
+                                    <li><strong>Timezone:</strong> America/Mexico_City</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h5>Parámetros de Conexión</h5>
+                                <ul>
+                                    <li><strong>Timeout:</strong> 60 segundos</li>
+                                    <li><strong>Pooling:</strong> Habilitado</li>
+                                    <li><strong>Charset:</strong> utf8mb4</li>
+                                    <li><strong>Strict Mode:</strong> Habilitado</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Configuración Laravel</h3>
+                        <pre class="code-block"><code>
+use Illuminate\Support\Str;
+
+return [
+    'default' => env('DB_CONNECTION', 'sqlite'),
+    'connections' => [
+
+        'sqlite' => [
+            'driver' => 'sqlite',
+            'url' => env('DB_URL'),
+            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+            'busy_timeout' => null,
+            'journal_mode' => null,
+            'synchronous' => null,
+        ],
+
+        'mysql' => [
+            'driver' => 'mysql',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+        'mariadb' => [
+            'driver' => 'mariadb',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => env('DB_CHARSET', 'utf8mb4'),
+            'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
+        'pgsql' => [
+            'driver' => 'pgsql',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => env('DB_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
+        'sqlsrv' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DB_URL'),
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '1433'),
+            'database' => env('DB_DATABASE', 'laravel'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => env('DB_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
+        ],
+
+    ],
+
+    'migrations' => [
+        'table' => 'migrations',
+        'update_date_on_publish' => true,
+    ],
+
+    'redis' => [
+
+        'client' => env('REDIS_CLIENT', 'phpredis'),
+
+        'options' => [
+            'cluster' => env('REDIS_CLUSTER', 'redis'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'persistent' => env('REDIS_PERSISTENT', false),
+        ],
+
+        'default' => [
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port' => env('REDIS_PORT', '6379'),
+            'database' => env('REDIS_DB', '0'),
+        ],
+
+        'cache' => [
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port' => env('REDIS_PORT', '6379'),
+            'database' => env('REDIS_CACHE_DB', '1'),
+        ],
+
+    ],
+
+];
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Mantenimiento y Backup -->
+            <section id="mantenimiento" class="section">
+                <h2>Instrucciones de Mantenimiento y Backup/Restore</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Procedimientos de Mantenimiento</h3>
+                        
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4>Mantenimiento Regular</h4>
+                                <ul>
+                                    <li><strong>Diario:</strong> Limpieza de logs temporales</li>
+                                    <li><strong>Semanal:</strong> Optimización de tablas</li>
+                                    <li><strong>Mensual:</strong> Revisión de índices</li>
+                                    <li><strong>Trimestral:</strong> Análisis de rendimiento</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4>Monitoreo</h4>
+                                <ul>
+                                    <li>Uso de espacio en disco</li>
+                                    <li>Consultas lentas</li>
+                                    <li>Conexiones activas</li>
+                                    <li>Rendimiento general</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h4>Comandos de Mantenimiento</h4>
+                        <pre class="code-block"><code># Optimizar tablas
+OPTIMIZE TABLE producto, pedido, detalle_pedido;
+
+# Analizar rendimiento
+ANALYZE TABLE producto;
+ANALYZE TABLE pedido;
+
+# Verificar integridad
+CHECK TABLE producto EXTENDED;
+CHECK TABLE pedido EXTENDED;
+
+# Reparar si es necesario
+REPAIR TABLE producto;
+REPAIR TABLE pedido;</code></pre>
+                    </div>
+
+                    <div class="card">
+                        <h3>Procedimientos de Backup</h3>
+                        
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4>Backup Completo</h4>
+                                <pre class="code-block"><code>
+# Backup de toda la base de datos CRUMBLY
+mysqldump -u root -p CRUMBLY > CRUMBLY-backup.sql
+</code></pre>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Crumbly - Plataforma de Repostería. Todos los derechos reservados.</p>
+            <p class="footer-links">
+                <a href="../index.html">Inicio</a> • 
+                <a href="backend.html">Backend</a> • 
+                <a href="frontend.html">Frontend</a> • 
+                <a href="team.html">Equipo</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

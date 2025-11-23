@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend - Manual Técnico Crumbly</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Crumbly</h1>
+            <h2>Manual Tecnico - Backend</h2>
+            <p class="version">Versión 1.0</p>
+        </header>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="../index.html" class="nav-link">Inicio</a></li>
+                <li><a href="#estructura" class="nav-link">Estructura</a></li>
+                <li><a href="#rutas" class="nav-link">Rutas</a></li>
+                <li><a href="#autenticacion" class="nav-link">Autenticación</a></li>
+                <li><a href="#logica" class="nav-link">Lógica</a></li>
+                <li><a href="#modelos" class="nav-link">Modelos</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- Sección Backend Overview -->
+            <section id="backend" class="section">
+                <h2>Backend (PHP/Laravel)</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Arquitectura Backend</h3>
+                        <p>El backend de Crumbly está desarrollado en <strong>Laravel</strong>, utilizando una arquitectura MVC tradicional con APIs RESTful para la comunicación con el frontend.</p>
+                        
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4>Tecnologías Principales</h4>
+                                <ul>
+                                    <li><strong>PHP 8.2+</strong></li>
+                                    <li><strong>Laravel 10.x</strong></li>
+                                    <li><strong>MySQL 8.0+</strong></li>
+                                    <li><strong>Eloquent ORM</strong></li>
+                                    <li><strong>Firebase SDK</strong></li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4>Características</h4>
+                                <ul>
+                                    <li>API RESTful completa</li>
+                                    <li>Autenticación híbrida (Local + Firebase)</li>
+                                    <li>Sistema de roles y permisos</li>
+                                    <li>Validación de datos robusta</li>
+                                    <li>Logging de actividades</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Estructura de Directorios -->
+            <section id="estructura" class="section">
+                <h2>Estructura de Directorios Clave</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Organización del Proyecto</h3>
+                        <pre class="code-block"><code>
+app
+ ┣ Http
+ ┃ ┣ Controllers
+ ┃ ┃ ┣ AdministradorController.php
+ ┃ ┃ ┣ CategoriaController.php
+ ┃ ┃ ┣ ClienteController.php
+ ┃ ┃ ┣ Controller.php
+ ┃ ┃ ┣ DetallePedidoController.php
+ ┃ ┃ ┣ DireccionController.php
+ ┃ ┃ ┣ EntregaPedidoController.php
+ ┃ ┃ ┣ EstadoPedidoController.php
+ ┃ ┃ ┣ EstadoProductoController.php
+ ┃ ┃ ┣ FirebaseAuthController.php          
+ ┃ ┃ ┣ LogAccionController.php
+ ┃ ┃ ┣ MetodoPagoController.php
+ ┃ ┃ ┣ OfertaController.php
+ ┃ ┃ ┣ PagoPedidoController.php
+ ┃ ┃ ┣ PedidoController.php
+ ┃ ┃ ┣ ProductoController.php
+ ┃ ┃ ┣ TipoUsuarioController.php
+ ┃ ┃ ┣ UsuarioFirebaseController.php
+ ┃ ┃ ┣ UsuarioLocalController.php
+ ┃ ┃ ┗ ValoracionController.php
+ ┃ ┗ Middleware                     
+ ┃ ┃ ┗ FirebaseEnsureValidUser.php
+ ┣ Models
+ ┃ ┣ Administrador.php
+ ┃ ┣ Categoria.php
+ ┃ ┣ Cliente.php
+ ┃ ┣ DetallePedido.php
+ ┃ ┣ Direccion.php
+ ┃ ┣ EntregaPedido.php
+ ┃ ┣ EstadoPedido.php
+ ┃ ┣ EstadoProducto.php
+ ┃ ┣ LogAccion.php
+ ┃ ┣ MetodoPago.php
+ ┃ ┣ Oferta.php
+ ┃ ┣ PagoPedido.php
+ ┃ ┣ Pedido.php
+ ┃ ┣ Producto.php
+ ┃ ┣ TipoUsuario.php
+ ┃ ┣ UsuarioFirebase.php
+ ┃ ┣ UsuarioLocal.php
+ ┃ ┗ Valoracion.php
+ ┗ Providers
+ ┃ ┣ AppServiceProvider.php
+ ┃ ┗ RouteServiceProvider.php
+</code></pre>
+                    </div>
+
+                    <div class="card">
+                        <h3>Descripción de Directorios</h3>
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4>app/Http/Controllers</h4>
+                                <p>Contiene todos los controladores que manejan la lógica de las rutas y responses HTTP.</p>
+                            </div>
+                            <div class="feature">
+                                <h4>app/Models</h4>
+                                <p>Modelos de Eloquent que representan las tablas de la base de datos y sus relaciones.</p>
+                            </div>
+                            <div class="feature">
+                                <h4>app/Services</h4>
+                                <p>Clases de servicio que contienen lógica de negocio reutilizable.</p>
+                            </div>
+                            <div class="feature">
+                                <h4>routes/api.php</h4>
+                                <p>Definición de todas las rutas de la API con sus respectivos controladores.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Rutas y Endpoints -->
+            <section id="rutas" class="section">
+                <h2>Rutas y Definición de Endpoints</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Estructura de Rutas API</h3>
+                        <pre class="code-block"><code>// Rutas de Productos
+Route::get('/productos', [ProductoController::class, 'index']);
+Route::get('/productos/{id}', [ProductoController::class, 'show']);
+Route::post('/productos', [ProductoController::class, 'store'])->middleware('auth:api', 'admin');
+Route::put('/productos/{id}', [ProductoController::class, 'update'])->middleware('auth:api', 'admin');
+Route::delete('/productos/{id}', [ProductoController::class, 'destroy'])->middleware('auth:api', 'admin');
+
+// Rutas de Pedidos
+Route::get('/pedidos', [PedidoController::class, 'index'])->middleware('auth:api');
+Route::get('/pedidos/{id}', [PedidoController::class, 'show'])->middleware('auth:api');
+Route::post('/pedidos', [PedidoController::class, 'store'])->middleware('auth:api');
+Route::get('/pedidos/cliente/{idCliente}', [PedidoController::class, 'getByCliente'])->middleware('auth:api');
+
+// Rutas de Autenticación
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
+
+// Rutas de Usuarios
+Route::get('/user', [UsuarioController::class, 'getUser'])->middleware('auth:api');
+Route::put('/user/profile', [UsuarioController::class, 'updateProfile'])->middleware('auth:api');</code></pre>
+                    </div>
+
+                    <div class="card">
+                        <h3>Endpoints Principales</h3>
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4>Productos</h4>
+                                <ul>
+                                    <li><code>GET /api/productos</code> - Listar todos</li>
+                                    <li><code>GET /api/productos/{id}</code> - Obtener específico</li>
+                                    <li><code>POST /api/productos</code> - Crear (Admin)</li>
+                                    <li><code>PUT /api/productos/{id}</code> - Actualizar (Admin)</li>
+                                    <li><code>DELETE /api/productos/{id}</code> - Eliminar (Admin)</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4> Pedidos</h4>
+                                <ul>
+                                    <li><code>GET /api/pedidos</code> - Listar pedidos</li>
+                                    <li><code>POST /api/pedidos</code> - Crear pedido</li>
+                                    <li><code>GET /api/pedidos/cliente/{id}</code> - Pedidos por cliente</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4> Usuarios</h4>
+                                <ul>
+                                    <li><code>POST /api/login</code> - Autenticación</li>
+                                    <li><code>POST /api/register</code> - Registro</li>
+                                    <li><code>GET /api/user</code> - Perfil de usuario</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Autenticación -->
+            <section id="autenticacion" class="section">
+                <h2> Autenticación, Autorización y Middleware</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Sistema de Autenticación Híbrido</h3>
+                        <p>Crumbly utiliza un sistema de autenticación que soporta tanto usuarios locales como autenticación mediante Firebase.</p>
+                        
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4>👤 Autenticación Local</h4>
+                                <ul>
+                                    <li>Usuarios administradores</li>
+                                    <li>Credenciales en base de datos</li>
+                                    <li>Sistema de roles integrado</li>
+                                    <li>Tokens JWT para API</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4> Autenticación Firebase</h4>
+                                <ul>
+                                    <li>Usuarios clientes</li>
+                                    <li>Autenticación social</li>
+                                    <li>Verificación de UID Firebase</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Proveedores de Servicios</h3>
+                        <p>Las versiones actuales de Laravel, específicamente Laravel 11, han simplificado la estructura del framework y cambiaron la funcionalidad principal que se encontraba en el archivo <code>app/Http/Kernel.php</code>. En lugar de utilizar Kernel.php, Laravel 11 ahora utiliza un archivo <code>bootstrap/app.php</code> para la configuración del núcleo y el arranque de la aplicación.</p>
+                        <pre class="code-block"><code>
+// boostrap/app.php
+use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        api:__DIR__.'/../routes/api.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware) {
+    $middleware->api(prepend: [
+        \Illuminate\Http\Middleware\HandleCors::class,
+    ]);
+    $middleware->alias([
+        'firebase.auth' => \App\Http\Middleware\FirebaseEnsureValidUser::class,
+    ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions) {
+        //
+    })->create();
+</code></pre>
+
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4>Middleware de Autenticación</h4>
+                                <ul>
+                                    <li><code>auth:api</code> - Verifica usuario autenticado</li>
+                                    <li><code>admin</code> - Verifica rol de administrador</li>
+                                    <li><code>firebase</code> - Valida tokens Firebase</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4>Middleware de Utilidad</h4>
+                                <ul>
+                                    <li><code>cors</code> - Manejo de CORS</li>
+                                    <li><code>throttle</code> - Limitación de requests</li>
+                                    <li><code>bindings</code> - Inyección de modelos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Lógica de Negocio -->
+            <section id="logica" class="section">
+                <h2> Lógica de Negocio</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Arquitectura de Controladores</h3>
+                        <p>Los controladores siguen el principio de responsabilidad única y delegan lógica compleja a servicios especializados.</p>
+                        
+                        <div class="card">
+                            <h4>Ejemplo: ProductoController</h4>
+                            <pre class="code-block"><code>
+namespace App\Http\Controllers;
+
+use App\Models\Producto;
+use Illuminate\Http\Request;
+
+class ProductoController extends Controller
+{
+    public function index()
+    {
+        $productos = Producto::all();
+
+        if ($productos->isEmpty()) {
+            return response()->json(['message' => 'No hay productos registrados', 'data' => []], 200);
+        } else {
+            return response()->json(['message' => 'Productos registrados', 'data' => $productos], 200);
+        }
+    }
+
+
+    public function show($id)
+    {
+        $producto = Producto::find($id);
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+        return response()->json($producto, 200);
+    }
+
+    public function store(Request $request)
+    {
+        $producto = Producto::create($request->all());
+        return response()->json($producto, 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $producto = Producto::find($id);        
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+        $producto->update($request->all());
+        return response()->json($producto, 200);
+    }
+
+    public function destroy($id)
+    {
+        $producto = Producto::find($id);
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+        $producto->delete();
+        return response()->json(['message' => 'Producto eliminado exitosamente'], 200);
+    }
+}
+</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Servicios y Patrones</h3>
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4> Servicios Principales</h4>
+                                <ul>
+                                    <li><strong>ProductoService</strong> - Gestión de productos y catálogo</li>
+                                    <li><strong>PedidoService</strong> - Procesamiento completo de pedidos</li>
+                                    <li><strong>ClienteService</strong> - Gestión de clientes y usuarios</li>
+                                    <li><strong>PagoService</strong> - Procesamiento de pagos y transacciones</li>
+                                    <li><strong>AuthService</strong> - Autenticación híbrida (Firebase/Local)</li>
+                                    <li><strong>CatalogoService</strong> - Gestión de categorías y ofertas</li>
+                                    <li><strong>EntregaService</strong> - Seguimiento de entregas y estados</li>
+                                    <li><strong>AdministradorService</strong> - Gestión de administradores</li>
+                                    <li><strong>DireccionService</strong> - Gestión de direcciones de envío</li>
+                                    <li><strong>DetallePedidoService</strong> - Gestión de detalles de pedidos</li>
+                                    <li><strong>EstadoService</strong> - Control de estados de pedidos y productos</li>
+                                    <li><strong>ValoracionService</strong> - Gestión de valoraciones y reseñas</li>
+                                    <li><strong>LogService</strong> - Registro de acciones del sistema</li>
+                                    <li><strong>UsuarioService</strong> - Gestión de usuarios locales y Firebase</li>
+                                    <li><strong>MetodoPagoService</strong> - Gestión de métodos de pago</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4> Patrones Implementados</h4>
+                                <ul>
+                                    <li><strong>Service Pattern</strong> - Separación de lógica de negocio</li>
+                                    <li><strong>Repository Pattern</strong> - Abstracción de acceso a datos</li>
+                                    <li><strong>Dependency Injection</strong> - Inyección de dependencias</li>
+                                    <li><strong>Form Requests</strong> - Validación centralizada</li>
+                                    <li><strong>Controller-Service</strong> - Separación de responsabilidades</li>
+                                    <li><strong>Middleware</strong> - Autenticación y autorización</li>
+                                    <li><strong>Factory Pattern</strong> - Creación de objetos complejos</li>
+                                    <li><strong>Observer Pattern</strong> - Monitoreo de cambios en estados</li>
+                                    <li><strong>Strategy Pattern</strong> - Múltiples métodos de autenticación</li>
+                                    <li><strong>Composite Pattern</strong> - Gestión de estructuras jerárquicas</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Modelos de Eloquent -->
+            <section id="modelos" class="section">
+                <h2> Modelos de Eloquent y Relaciones</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Modelos Principales y Relaciones</h3>
+                        
+                        <div class="card">
+                            <h4>Modelo: Producto</h4>
+                            <pre class="code-block"><code>class Producto extends Model
+{
+    protected $table = 'producto';
+    protected $primaryKey = 'id_producto';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
+    protected $fillable = [
+        'id_producto',
+        'nombre', 
+        'descripcion',
+        'precio',
+        'stock',
+        'id_categoria',
+        'id_admin',
+        'id_estado_producto'
+    ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'id_categoria');
+    }
+
+    public function administrador()
+    {
+        return $this->belongsTo(Administrador::class, 'id_admin');
+    }
+
+    public function estado()
+    {
+        return $this->belongsTo(EstadoProducto::class, 'id_estado_producto');
+    }
+
+    public function ofertas()
+    {
+        return $this->hasMany(Oferta::class, 'id_producto');
+    }
+
+    public function valoraciones()
+    {
+        return $this->hasMany(Valoracion::class, 'id_producto');
+    }
+}</code></pre>
+                        </div>
+
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4> Relaciones Principales</h4>
+                                <ul>
+                                    <li><strong>Producto → Categoria</strong> (belongsTo)</li>
+                                    <li><strong>Producto → Administrador</strong> (belongsTo)</li>
+                                    <li><strong>Pedido → Cliente</strong> (belongsTo)</li>
+                                    <li><strong>Pedido → DetallePedido</strong> (hasMany)</li>
+                                    <li><strong>Cliente → Direccion</strong> (hasMany)</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4> Características de Modelos</h4>
+                                <ul>
+                                    <li>Primary keys personalizadas</li>
+                                    <li>Timestamps automáticos</li>
+                                    <li>Castings de tipos de datos</li>
+                                    <li>Scopes para consultas comunes</li>
+                                    <li>Eventos y observers</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Crumbly - Plataforma de Repostería.</p>
+            <p class="footer-links">
+                <a href="../index.html">Inicio</a> • 
+                <a href="frontend.html">Frontend</a> • 
+                <a href="database.html">Base de Datos</a> • 
+                <a href="team.html">Equipo</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="../script.js"></script>
+</body>
+</html>

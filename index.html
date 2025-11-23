@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Técnico - Crumbly</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Crumbly</h1>
+            <h2>Manual Tecnico</h2>
+            <p class="version">Versión 1.0</p>
+        </header>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="pages/backend.html" class="nav-link">Backend</a></li>
+                <li><a href="pages/frontend.html" class="nav-link">Frontend</a></li>
+                <li><a href="pages/database.html" class="nav-link">Base de Datos</a></li>
+                <li><a href="pages/team.html" class="nav-link">Equipo</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- Sección Propósito -->
+            <section id="proposito" class="section">
+                <h2>Propósito y Alcance del Proyecto</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Crumbly - Solución para Pequeños Negocios de Repostería</h3>
+                        <p><strong>Descripción:</strong> Crumbly surge como respuesta a la carencia de herramientas digitales accesibles para pequeños negocios de repostería, los cuales, pese al crecimiento del comercio en línea tras la pandemia, aún enfrentan limitaciones en la gestión y promoción virtual de sus productos.</p>
+                        
+                        <div class="features-grid">
+                            <div class="feature">
+                                <h4> Módulos Principales</h4>
+                                <ul>
+                                    <li>Catálogo de productos</li>
+                                    <li>Sistema de pagos en línea</li>
+                                    <li>Panel administrativo</li>
+                                    <li>Gestión de pedidos</li>
+                                    <li>Sistema de valoraciones</li>
+                                </ul>
+                            </div>
+                            <div class="feature">
+                                <h4> Roles de Usuario</h4>
+                                <ul>
+                                    <li><strong>Visitante:</strong> Ver catálogo (sin comprar)</li>
+                                    <li><strong>Usuario:</strong> Realizar pedidos, pagos, valorar productos</li>
+                                    <li><strong>Admin:</strong> Gestión completa (productos, pedidos, usuarios)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Arquitectura -->
+            <section id="arquitectura" class="section">
+                <h2>Arquitectura General</h2>
+                <div class="content">
+                <div class="img-container">
+                    <img src="assets/diagrama1.png" class="diagrama1"/>
+                </div>
+                    <div class="card">
+                        <h3>Flujo de la Aplicación</h3>
+                        <div class="flow-steps">
+                            <div class="flow-step">
+                                <span class="step-number">1</span>
+                                <h4>Visitante</h4>
+                                <p>Accede a landing page → Ve productos → Se registra/ingresa</p>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-number">2</span>
+                                <h4>Usuario</h4>
+                                <p>Logueado (local/Firebase) → Carrito → Pedidos → Pagos → Valoraciones</p>
+                            </div>
+                            <div class="flow-step">
+                                <span class="step-number">3</span>
+                                <h4>Administrador</h4>
+                                <p>Login local → Dashboard → Gestión productos/usuarios/pedidos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Tecnologías -->
+            <section id="tecnologias" class="section">
+                <h2>Tecnologías Clave y Versiones</h2>
+                <div class="content">
+                    <div class="tech-grid">
+                        <div class="tech-card">
+                            <h3>Backend</h3>
+                            <ul>
+                                <li><strong>PHP:</strong> 8.2+</li>
+                                <li><strong>Laravel:</strong> Última versión estable</li>
+                                <li><strong>MySQL:</strong> 8.0+</li>
+                                <li><strong>Composer:</strong> Gestor de dependencias</li>
+                            </ul>
+                        </div>
+                        <div class="tech-card">
+                            <h3>Frontend</h3>
+                            <ul>
+                                <li><strong>React:</strong> 18+</li>
+                                <li><strong>Vite:</strong> Build tool</li>
+                                <li><strong>Tailwind CSS:</strong> Framework CSS</li>
+                                <li><strong>npm:</strong> Gestor de paquetes</li>
+                            </ul>
+                        </div>
+                        <div class="tech-card">
+                            <h3>Servicios</h3>
+                            <ul>
+                                <li><strong>Firebase Auth:</strong> Autenticación</li>
+                                <li><strong>MySQL:</strong> Base de datos principal</li>
+                                <li><strong>Localhost:</strong> Entorno de desarrollo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Requisitos -->
+            <section id="requisitos" class="section">
+                <h2>Requisitos de Instalación</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Prerrequisitos del Sistema</h3>
+                        
+                        <div class="requirements-grid">
+                            <div class="requirement">
+                                <h4>Backend (PHP/Laravel)</h4>
+                                <ul>
+                                    <li>PHP 8.2 o superior</li>
+                                    <li>Composer instalado</li>
+                                    <li>MySQL 8.0+</li>
+                                    <li>Extensiones PHP estándar de Laravel</li>
+                                    <li>Archivo firebase_credential.json</li>
+                                </ul>
+                            </div>
+                            <div class="requirement">
+                                <h4>Frontend (React/Vite)</h4>
+                                <ul>
+                                    <li>Node.js 18+</li>
+                                    <li>npm o yarn</li>
+                                    <li>Vite React</li>
+                                    <li>Tailwind CSS</li>
+                                </ul>
+                            </div>
+                            <div class="requirement">
+                                <h4>Infraestructura</h4>
+                                <ul>
+                                    <li>Entorno local (localhost)</li>
+                                    <li>Servidor web (Apache/Nginx)</li>
+                                    <li>Acceso a consola de Firebase</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Configuración -->
+            <section id="configuracion" class="section">
+                <h2>Guía de Configuración Rápida</h2>
+                <div class="content">
+                    <div class="card">
+                        <h3>Primeros Pasos</h3>
+                        
+                        <div class="config-steps">
+                            <div class="config-step">
+                                <h4>1. Configuración del Backend</h4>
+                                <pre><code># Clonar repositorio
+git clone https://github.com/LourdesCabrera-2025/Crumbly-Official.git
+cd server
+
+# Instalar dependencias
+composer install
+
+# Configurar .env
+cp .env.example .env
+# Editar .env con configuraciones de DB y Firebase (más información en el apartado de Backend)
+# Colocar /firebase_credentials.json en la carpeta raíz del proyecto (/server)
+</code></pre>
+                            </div>
+                            
+                            <div class="config-step">
+                                <h4>2. Configuración de Base de Datos</h4>
+                                <pre><code># Crear base de datos 
+# Ejecutar el archivo database/Crumbly_Official.sql
+# Restaurar el backup de la base de datos
+</code></pre>
+                            </div>
+                            
+                            <div class="config-step">
+                                <h4>3. Configuración del Frontend</h4>
+                                <pre><code># Navegar al directorio frontend
+cd client
+
+# Instalar dependencias
+npm install
+
+# Ejecutar en desarrollo
+npm run dev</code></pre>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Estructura general de configuración</h3>
+                        <pre class="code-block"><code>
+CRUMBLY-OFFICIAL/
+├── server/
+│   ├── .env
+│   ├── app/
+│   ├── firebase_credentials.json
+│   └── database/
+└── client/
+    ├── .env
+    ├── src/
+    └── package.json
+</code></pre>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Crumbly - Plataforma de Repostería.</p>
+            <p class="footer-links">
+                <a href="pages/backend.html">Backend</a> • 
+                <a href="pages/frontend.html">Frontend</a> • 
+                <a href="pages/database.html">Base de Datos</a> • 
+                <a href="pages/team.html">Equipo</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
